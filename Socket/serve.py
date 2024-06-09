@@ -1,5 +1,5 @@
 import asyncio
-import json
+from Database import DB
 from websockets.server import serve
 
 async def Broadcast(websocket):
@@ -7,6 +7,6 @@ async def Broadcast(websocket):
         await websocket.send(message)
 
 async def Node():
-    async with serve(Broadcast, "localhost", 8765):
+    async with serve(Broadcast, "localhost", DB.GetUserData):
         await asyncio.Future()  # run forever
 
