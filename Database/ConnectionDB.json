@@ -1,0 +1,14 @@
+{
+    "Nodes" :{
+        "2813783013277" : {
+            "IP":"Some IP here",
+            "PublicKey":"SomePublic Key Here",
+            "LatestChanged":""
+        },
+        "2813783013278" : {
+            "IP":"Some IP here",
+            "PublicKey":"SomePublic Key Here",
+            "LatestChanged":""
+        }
+    }
+}

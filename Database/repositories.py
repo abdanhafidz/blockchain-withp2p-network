@@ -1,15 +1,12 @@
 
-class Database:
-    def GetNetworkData():
+def GetNetworkData(param):
         import json
-        f = open('network_db.json')
+        f = open('Database/Connection.json')
         data = json.load(f)
-        return data
+        return data    
 
-    def GetUserData():
+def GetUserData(param):
         import json 
-        f = open('user_db.json')
+        f = open('Database/NodeDB.json')
         data = json.load(f)
-        return data
-    
-DB = Database()
+        return data[param]    
