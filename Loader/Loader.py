@@ -3,7 +3,7 @@ from Controller import NodeController, TransactionController
 from View import MenuView
 import os
 def LoadView(loc):
-    os.system('cls')
+    # os.system('cls')
     try:
         match loc:
             case 0:

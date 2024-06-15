@@ -1,14 +1,15 @@
 from Database import Repositories as repo
 from Engine import KeyGenerator as KeyGen, BIPMemonicGenerator as MemonicGen
 from View import HomeView
-import json, random
+import json, socket
 def Control():
     try:
         NodeAddress = int(repo.GetUserData("NodeAddress"))
         PrivateKey = repo.GetUserData("PrivateKey")
         PublicKey = repo.GetUserData("PublicKey")
         if(NodeAddress <= 0):
-            NodeAddress = random.randint(100000000000,10000000000000)
+            hostname = socket.gethostname()
+            NodeAddress = socket.gethostbyname(hostname)
             print("Looks Like you Are a new User ... wait for us creating Ur Credentials")
         if(PrivateKey == None  or PublicKey == None or  PrivateKey == "" or PublicKey == ""):
             print("Generating Credential Keys ... ")

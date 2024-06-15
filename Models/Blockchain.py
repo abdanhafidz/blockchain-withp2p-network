@@ -1,13 +1,12 @@
 import datetime
 import json
-from block import Block
-from hash import hash
+from Models import Block
+import random
+from Engine import Hash, JSONWorker
 
 class Blockchain:
     def __init__(self):
-        f = open("../Database/BlockChainDB.json")
-        BlockChainData = json.load(f)
-        print(BlockChainData)
+        BlockChainData = JSONWorker.GetDataJSON('Database/BlockChainDB.json')
         self.blockchaindata = list(BlockChainData)
         
     def add_block(self, block:Block):
@@ -21,19 +20,35 @@ class Blockchain:
             "timeStamp": block.timeStamp
         }
         self.blockchaindata.append(dictBlock)
-        with open("../Database/BlockChainDB.json", "w") as outfile:
-            json.dump(self.blockchaindata, outfile)
+        return JSONWorker.CreateDataJSON('Database/BlockChainDB.json',self.blockchaindata)
         
     def mine_block(self, block:Block):
         previous_block = self.blockchaindata[-1]
+        print(previous_block)
         # print(previous_block)
-        f = open("../Database/NodeDB.json")
-        data = json.load(f)
+        data = JSONWorker.GetDataJSON('Database/NodeDB.json')
         previous_hash = previous_block["hash"]
         publicKey = data['PublicKey']
-        block.hash = hash(block.message, previous_hash, publicKey, 123782)
+        works = 0
+        print(previous_block["nonce"])
+        for mineNonce in range(1,2**(256)):
+            hash_hex = str(hash(block.message, previous_hash, publicKey, mineNonce))
+            hash_binary = ''.join(format(ord(x), '08b') for x in hash_hex)  
+            
+            if(str(hash_binary)[:2] == "00"):
+                block.prev_hash = previous_hash
+                block.nonce = mineNonce
+                block.hash = hash_hex
+                block.proof_of_work = works
+                break
+            else:
+                # print(hash_hex)
+                # print(hash_binary)
+                # print(str(hash_binary)[:2])
+                print("Mining block on step : ", works)
+                works+=1
         self.add_block(block)
-    
+        return block
     def verify_block(self):
         for i in range(1, len(self.blockchaindata)):
             previous_block = self.blockchaindata[i - 1]
@@ -43,8 +58,7 @@ class Blockchain:
         return True
     
 
-blockBaru = Block()
-blockBaru.message = "Naufal Transfer 20 BTC"
-blockBaru.timeStamp = str(datetime.datetime.now())
-BlockChain = Blockchain()
-BlockChain.mine_block(blockBaru)
+# blockBaru = Block()
+# blockBaru.message = "Naufal Transfer 20 BTC"
+# BlockChain = Blockchain()
+# BlockChain.mine_block(blockBaru)
