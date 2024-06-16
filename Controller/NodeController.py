@@ -4,10 +4,10 @@ from View import HomeView
 import json, socket
 def Control():
     try:
-        NodeAddress = int(repo.GetUserData("NodeAddress"))
+        NodeAddress = repo.GetUserData("NodeAddress")
         PrivateKey = repo.GetUserData("PrivateKey")
         PublicKey = repo.GetUserData("PublicKey")
-        if(NodeAddress <= 0):
+        if(NodeAddress == ""):
             hostname = socket.gethostname()
             NodeAddress = socket.gethostbyname(hostname)
             print("Looks Like you Are a new User ... wait for us creating Ur Credentials")

@@ -1,11 +1,15 @@
-from Engine import JSONWorker
-def GetNetworkData(param):
+from Engine import JSONWorker, KeyGenerator
+def GetNetworkData():
         return JSONWorker.GetDataJSON('Database/ConnectionDB.json')
-
 def GetUserData(param):
-        return JSONWorker.GetDataJSON('Database/NodeDB.json')
+        data =  JSONWorker.GetDataJSON('Database/NodeDB.json')
+        return data[param]
+def GetBlockChainData():
+        return JSONWorker.GetDataJSON('Database/BlockChainDB.json')
+def CreateNetworkData(NodeAddress, param):
+    NetworkData = GetNetworkData()["Nodes"]
+    NetworkData[NodeAddress] = param
+    return JSONWorker.CreateDataJSON('Database/ConnectionDB.json',{"Nodes":NetworkData})
+def CreateBlockChainData(param):
+    return JSONWorker.CreateDataJSON('Database/BlockChainDB.json',param)
 
-def CreateNetworkData(param):
-    NetworkData = list(GetNetworkData["Nodes"])
-    NetworkData.append(param)
-    return JSONWorker.CreateDataJSON('Database/NodeDB.json',NetworkData)

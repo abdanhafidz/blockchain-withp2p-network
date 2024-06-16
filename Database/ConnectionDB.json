@@ -1,12 +1,5 @@
-{
-    "Nodes" :{
-        "192.168.129.1" : {
-            "PublicKey":"SomePublic Key Here",
-            "LastChanged":""
-        },
-        "192.168.129.2" : {
-            "PublicKey":"SomePublic Key Here",
-            "LastChanged":""
-        }
-    }
-}
+{"Nodes": {
+    "192.168.129.1": {"PublicKey": "SomePublic Key Here", "LastChanged": ""}, 
+    "192.168.129.2": {"PublicKey": "SomePublic Key Here", "LastChanged": ""}, 
+    "127.0.0.1": {"IP": "127.0.0.1", "LastChanged": ""}
+    }}

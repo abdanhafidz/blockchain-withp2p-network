@@ -19,16 +19,16 @@ def LoadView(loc):
                 NodeController.Control()
         MenuView.Main()
     except KeyboardInterrupt:
-        s = input("Exit the Program? [Y/n] :")
+        s = input("\n Exit the Program? [Y/n] :")
         if(s == "Y"):
             print("Goodbye! ^^")
             exit()
         else:
-            os.system('cls')
+            # os.system('cls')
             NodeController.Control()
     except TypeError:
         print('An Error Occured : ','Invalid Command #', loc)
     except Exception as error:
-        os.system('cls')
+        # os.system('cls')
         print('An Error Occured : ','Invalid Command #', error)
         NodeController.Control()
