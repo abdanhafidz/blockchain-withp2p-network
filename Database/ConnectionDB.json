@@ -1,5 +1,8 @@
-{"Nodes": {
-    "192.168.129.1": {"PublicKey": "SomePublic Key Here", "LastChanged": ""}, 
-    "192.168.129.2": {"PublicKey": "SomePublic Key Here", "LastChanged": ""}, 
-    "127.0.0.1": {"IP": "127.0.0.1", "LastChanged": ""}
-    }}
+{"Nodes": 
+{
+    "192.168.1.14": {"IP": "192.168.1.14", "LastChanged": "2024-06-20 21:55:45.884855", "Latency": 3.002819061279297, "Status": "Online"},
+    "192.168.1.13": {"IP": "192.168.1.14", "LastChanged": "2024-06-20 21:55:45.884855", "Latency": 3.002819061279297, "Status": "Online"}
+}
+
+
+}

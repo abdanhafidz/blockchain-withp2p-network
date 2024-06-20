@@ -1,6 +1,6 @@
 import socket
 from Database import Repositories as DB
-from Models.Block import Block
+from Models.Interface import Block
 import asyncio
 class NodeHandler:
     def __init__(self):

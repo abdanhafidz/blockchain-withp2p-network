@@ -1,12 +1,13 @@
 from View import TransactionView
-from Models import Block, Blockchain
+from Models import Blockchain, Interface
 from Database import Repositories
-from Engine import JSONWorker
+from Middleware import JSONWorker, BlockChainSync
 def Control():
     try:
+        BlockChainSync.VerifySyncBlockChain()
         SendTo, RecvID, Message =  TransactionView.Main()
         BlockChain = Blockchain.Blockchain()
-        NewBlock = Block.Block()
+        NewBlock = Interface.Block()
         PublicKey = Repositories.GetUserData('PublicKey')
         NewBlock.message = f"From {PublicKey} to {RecvID}, {Message}"
         MinedBlock = BlockChain.mine_block(NewBlock)

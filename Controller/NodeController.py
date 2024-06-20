@@ -1,5 +1,5 @@
 from Database import Repositories as repo
-from Engine import KeyGenerator as KeyGen, BIPMemonicGenerator as MemonicGen
+from Middleware import KeyGenerator as KeyGen, BIPMemonicGenerator as MemonicGen
 from View import HomeView
 import json, socket
 def Control():
