@@ -3,5 +3,11 @@
 from Middleware import BlockChainSync
 
 from Loader import Loader
-BlockChainSync.SynchronizeBlockChain()
-Loader.LoadView(0)
+try:
+    print("Synchronize The BlockChain")
+    BlockChainSync.SynchronizeBlockChain()
+    Loader.LoadView(0)
+except:
+    print("Make Sure that You are Connected to the Internet!")
+    
+

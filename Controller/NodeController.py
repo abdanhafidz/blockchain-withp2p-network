@@ -4,13 +4,10 @@ from View import HomeView
 import json, socket
 def Control():
     try:
-        NodeAddress = repo.GetUserData("NodeAddress")
         PrivateKey = repo.GetUserData("PrivateKey")
         PublicKey = repo.GetUserData("PublicKey")
-        if(NodeAddress == ""):
-            hostname = socket.gethostname()
-            NodeAddress = socket.gethostbyname(hostname)
-            print("Looks Like you Are a new User ... wait for us creating Ur Credentials")
+        hostname = socket.gethostname()
+        NodeAddress = socket.gethostbyname(hostname)
         if(PrivateKey == None  or PublicKey == None or  PrivateKey == "" or PublicKey == ""):
             print("Generating Credential Keys ... ")
             private_key, public_key = KeyGen.generate_key_pair()
@@ -26,6 +23,13 @@ def Control():
             Memonic = MemonicGen.CreateMemonicPhrase(private_key)
             HomeView.Main(Memonic, PublicKey)
         else:
+            JsonObject = json.dumps({
+                "NodeAddress":NodeAddress,
+                "PrivateKey":PrivateKey,
+                "PublicKey":PublicKey
+            }, indent = 3)
+            with open("Database/NodeDB.json", "w") as outfile:
+                outfile.write(JsonObject)
             Memonic = MemonicGen.CreateMemonicPhrase(PrivateKey)
             HomeView.Main(Memonic, PublicKey)
     except Exception as err:

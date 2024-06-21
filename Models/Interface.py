@@ -1,6 +1,13 @@
 import datetime
 class Block:
-    def __init__(self, hash = "", prev_hash = "", message = "", nonce = "", proof_of_work = "", number_of_block = 0, timeStamp = "", signature = ""):
+    def __init__(self, hash = "", 
+                 prev_hash = "", 
+                 message = "", 
+                 nonce = "", 
+                 proof_of_work = "", 
+                 number_of_block = 0, 
+                 timeStamp = "", 
+                 signature = ""):
         self.hash = hash
         self.prev_hash = prev_hash
         self.message = message

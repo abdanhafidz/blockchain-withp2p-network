@@ -1,3 +1,4 @@
 {
-    "address":8333
+    "PythonVersion" : "3.11.2",
+    "Dependencies" : ["mnemonic",  "asyncio", "websockets", "urllib", "datetime", "ecdsa", "time"]
 }

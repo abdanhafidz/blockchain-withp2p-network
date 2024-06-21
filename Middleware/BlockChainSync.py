@@ -11,7 +11,6 @@ def SynchronizeBlockChain():
     if latency_nodes:
         closest_node = min(latency_nodes.items(), key=lambda item: item[1]["Latency"])
         closest_ip = closest_node[0]
-        print(closest_node)
         ReceivedChain = WSBlockChainSync.SynchronizeHandler(closest_ip)
         if(ReceivedChain["BlockChainData"] != '' and ReceivedChain["BlockChainData"]):
             JSONWorker.CreateDataJSON('Database/BlockChainDB.json',ReceivedChain["BlockChainData"])
