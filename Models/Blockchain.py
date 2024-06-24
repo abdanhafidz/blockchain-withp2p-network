@@ -39,11 +39,18 @@ class Blockchain:
         self.add_block(block)
         return block
     def verify_block(self, block:Union[DictObj,'Block',Block])->BlockVerifyStatus:
-        HashHex = str(Hash.hash(block.message, self.BlockChainData[-1]["hash"], block.signature, block.nonce, block.timeStamp))
-        PublicKey = KeyGenerator.load_public_key_from_hex(KeyGenerator.ParseSender(block.message))
-        VerifySignature = KeyGenerator.verify_signature(PublicKey, block.message, block.signature)
+        HashHex = str(Hash.hash(block.message, self.BlockChainData[-1]["hash"], 
+                                block.signature, block.nonce, block.timeStamp))
+        PublicKey = KeyGenerator.load_public_key_from_hex(KeyGenerator.
+                                                          ParseSender(block.message))
+        VerifySignature = KeyGenerator.verify_signature(PublicKey, 
+                                                        block.message, 
+                                                        block.signature)
         VerifyStatus = BlockVerifyStatus()
-        if(self.BlockChainData[-1]["hash"] == block.prev_hash and block.hash == HashHex and VerifySignature and block.number_of_block == self.BlockChainData[-1]["number_of_block"] + 1):
+        if(self.BlockChainData[-1]["hash"] == block.prev_hash and 
+           block.hash == HashHex and 
+           VerifySignature and 
+           block.number_of_block == self.BlockChainData[-1]["number_of_block"] + 1):
             return True
         else:
             if(self.BlockChainData[-1]["hash"] != block.prev_hash):
@@ -58,8 +65,10 @@ class Blockchain:
                 VerifyStatus.MissedBlock = True
             VerifyStatus.BlockNumber = block.number_of_block
             return VerifyStatus
-    def verify_chain(self):
-        for data in self.BlockChainData[::-1]:
+    def verify_chain(self, chain = False):
+        if(not chain):
+            chain = self.BlockChainData
+        for data in chain[::-1]:
             if(data["number_of_block"] == 0): continue
             if(not self.verify_block(DictObj(data)).Status):
                 return False

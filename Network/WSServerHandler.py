@@ -1,7 +1,6 @@
 import asyncio
 import websockets
-from websockets.sync.client import connect
-from Models.Interface import DictObj
+from Middleware import BlockChainSync
 from Database import Repositories as DB
 from Middleware import JSONWorker
 from Controller import BlockReceiverController
@@ -23,7 +22,7 @@ async def Broadcast_messages():
         data = JSONWorker.GetDataJSON('Buffer/WaitBox.json')
         if(data["Draft"] != None and data["Draft"] != "" and data["Draft"] != ''):
             print("Broadcast a Block ...", data["Draft"])
-            await broadcast(str(data["Draft"]))
+            await broadcast(json.dumps(data["Draft"]))
             JSONWorker.CreateDataJSON('Buffer/WaitBox.json',{"Draft":""})
             
 
@@ -49,7 +48,7 @@ async def Handler(websocket):
         NetData = DB.GetNetworkData()
         dict = {"IP":client_host,
             "LastChanged":str(datetime.datetime.now()),
-            "Latency":NetData[client_host]["Latency"],
+            "Latency":NetData["Nodes"][client_host]["Latency"],
             "Status":"Offline"
             }
         DB.CreateNetworkData(client_host, dict)
@@ -60,11 +59,12 @@ async def Handler(websocket):
         NetData = DB.GetNetworkData()
         dict = {"IP":client_host,
             "LastChanged":str(datetime.datetime.now()),
-            "Latency":NetData[client_host]["Latency"],
+            "Latency":NetData["Nodes"][client_host]["Latency"],
             "Status":"Offline"
             }
         DB.CreateNetworkData(client_host, dict)
 async def HandlerGetBlockChain(websocket, path):
+        BlockChainSync.VerifySyncBlockChain()
         BlockChainData = DB.GetBlockChainData()
         UserData = DB.GetUserData("PublicKey")
         await websocket.send(json.dumps({
@@ -83,6 +83,7 @@ async def main():
     hostname = socket.gethostname()
     NodeAddress = socket.gethostbyname(hostname)
     JSONWorker.EditDataJSON('Database/NodeDB.json',"NodeAddress",NodeAddress)
+    print("Server Network Panel : ")
     async with websockets.serve(route, DB.GetUserData("NodeAddress"), 8333):
         # print("Server Is Starting ... ")
         await asyncio.Future()

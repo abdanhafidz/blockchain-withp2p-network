@@ -1,1 +1,5 @@
-{"NodeAddress": "192.168.1.8", "PrivateKey": "8bc986fed15c9d1781bd367647a361ec380c615f05f9edcf7e04ae597a0c1756", "PublicKey": "0250a8874e35bd98aa002f5b004a2bccb98016796d37048b49e88474389fa20446"}
+{
+   "NodeAddress": "192.168.1.8",
+   "PrivateKey": "276be14c24fb57d7f2b8028a8f7d5e6ab64622dd144f0fd0fd97dfe0b03c8ec2",
+   "PublicKey": "0391dd16df498c986e7dde7d189a1f1e26359a07d7f3a9e4fcec997c21ff3c0523"
+}

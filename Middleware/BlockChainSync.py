@@ -5,17 +5,27 @@ from Middleware import JSONWorker
 from Models.Blockchain import Blockchain
 import asyncio
 def SynchronizeBlockChain():
+    BlockChain = Blockchain()
     data  = DB.GetNetworkData()
     nodes = data["Nodes"]
     latency_nodes = {k: v for k, v in nodes.items() if "Latency" in v}
-    if latency_nodes:
-        closest_node = min(latency_nodes.items(), key=lambda item: item[1]["Latency"])
-        closest_ip = closest_node[0]
-        ReceivedChain = WSBlockChainSync.SynchronizeHandler(closest_ip)
-        if(ReceivedChain["BlockChainData"] != '' and ReceivedChain["BlockChainData"]):
-            JSONWorker.CreateDataJSON('Database/BlockChainDB.json',ReceivedChain["BlockChainData"])
-    else:
-        print("No nodes with latency information found.")
+    sorted_nodes = sorted(latency_nodes.items(), key=lambda item: item[1]["Latency"])
+    nodeIndex = 0
+    while True:
+        if latency_nodes:
+            closest_node = sorted_nodes[nodeIndex]
+            closest_ip = closest_node[0]
+            ReceivedChain = WSBlockChainSync.SynchronizeHandler(closest_ip)
+            if(ReceivedChain["BlockChainData"] != '' and ReceivedChain):
+                if(BlockChain.verify_chain(ReceivedChain["BlockChainData"])):
+                    JSONWorker.CreateDataJSON('Database/BlockChainDB.json',ReceivedChain["BlockChainData"])
+                    break
+                else:
+                    nodeIndex+=1
+                    continue
+
+        else:
+            print("No nodes with latency information found.")
 
 def VerifySyncBlockChain():
     BlockChain:Blockchain = Blockchain()
