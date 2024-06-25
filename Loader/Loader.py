@@ -1,5 +1,5 @@
 
-from Controller import NodeController, TransactionController, kontoljembut
+from Controller import BlockChainDisplay, NodeController, TransactionController
 from View import MenuView
 import os
 def LoadView(loc):
@@ -13,7 +13,7 @@ def LoadView(loc):
             case 2:
                 NodeController.Control()
             case 3:
-                kontoljembut.Control()
+                BlockChainDisplay.Control()
             case _:
                 print("Error : Invalid Menu Command")
                 NodeController.Control()
