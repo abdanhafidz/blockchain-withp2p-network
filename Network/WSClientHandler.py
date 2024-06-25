@@ -18,7 +18,7 @@ async def ClientHandler(address):
                 message = await websocket.recv()
                 
                 if message != '':
-                    ReceivedBlock = json.loads(json.dumps(message))
+                    ReceivedBlock = json.loads((message))
                     print("Block Received : ",ReceivedBlock)
                     BlockReceiverController.Control(ReceivedBlock)
         
@@ -31,6 +31,7 @@ async def ClientHandler(address):
             "Status":"Offline"
             }
         DB.CreateNetworkData(client_host, dict)
+        await asyncio.sleep(1)
     except websockets.exceptions.ConnectionClosedError:
         if address in connected_nodes_set:
             client_host = address
@@ -42,6 +43,7 @@ async def ClientHandler(address):
             }
             DB.CreateNetworkData(client_host, dict)
             print(f"Connection to {address} closed unexpectedly, attempting to reconnect...")
+            await asyncio.sleep(1)
         else:
             client_host = address
             NetData = DB.GetNetworkData()
@@ -52,6 +54,7 @@ async def ClientHandler(address):
             }
             DB.CreateNetworkData(client_host, dict)
             print(f"Connection to {address} skipped initially")
+            await asyncio.sleep(1)
     except Exception as e:
         client_host = address
         NetData = DB.GetNetworkData()
@@ -62,6 +65,7 @@ async def ClientHandler(address):
         }
         DB.CreateNetworkData(client_host, dict)
         print(f"Connection to {address} failed: {e}")
+        await asyncio.sleep(1)
 
 async def Peering():
     NetData = DB.GetNetworkData()

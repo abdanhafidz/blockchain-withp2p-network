@@ -15,7 +15,7 @@ def Control(block:DictObj)->Response:
             LastBlockProof  = LastBlock["proof_of_work"]
             LastBlockCreator = ParseSender(LastBlock["message"])
             BlockProof = block.proof_of_work
-            BlockCreator = ParseSender(block.message)
+            BlockCreator = ParseSender(block["message"])
             if(LastBlockProof > BlockProof):
                 if(BlockCreator == DB.GetUserData("PublicKey")):
                     MinedBlock = BlockChain.mine_block(block)
