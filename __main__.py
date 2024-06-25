@@ -6,5 +6,5 @@ from Loader import Loader
 print("Synchronize The BlockChain")
 BlockChainSync.SynchronizeBlockChain()
 Loader.LoadView(0)
-    
+
 

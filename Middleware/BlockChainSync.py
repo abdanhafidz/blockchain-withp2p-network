@@ -12,10 +12,16 @@ def SynchronizeBlockChain():
     sorted_nodes = sorted(latency_nodes.items(), key=lambda item: item[1]["Latency"])
     nodeIndex = 0
     while True:
+
         if latency_nodes:
             closest_node = sorted_nodes[nodeIndex]
             closest_ip = closest_node[0]
+            print(closest_ip)
+            if(closest_node[1]['Status'] == 'Offline'):
+                nodeIndex+=1
+                continue
             ReceivedChain = WSBlockChainSync.SynchronizeHandler(closest_ip)
+            print("Synchronize to", closest_ip)
             if(ReceivedChain["BlockChainData"] != '' and ReceivedChain):
                 if(BlockChain.verify_chain(ReceivedChain["BlockChainData"])):
                     JSONWorker.CreateDataJSON('Database/BlockChainDB.json',ReceivedChain["BlockChainData"])
