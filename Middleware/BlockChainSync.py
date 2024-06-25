@@ -16,7 +16,6 @@ def SynchronizeBlockChain():
         if latency_nodes:
             closest_node = sorted_nodes[nodeIndex]
             closest_ip = closest_node[0]
-            print(closest_ip)
             if(closest_node[1]['Status'] == 'Offline'):
                 nodeIndex+=1
                 continue

@@ -16,8 +16,10 @@ async def ClientHandler(address):
             await websocket.send("ping")
             while True:
                 message = await websocket.recv()
+                
                 if message != '':
-                    ReceivedBlock = json.loads(json.dumpmessage)
+                    ReceivedBlock = json.loads(json.dumps(message))
+                    print("Block Received : ",ReceivedBlock)
                     BlockReceiverController.Control(ReceivedBlock)
         
     except asyncio.exceptions.TimeoutError:
@@ -35,7 +37,7 @@ async def ClientHandler(address):
             NetData = DB.GetNetworkData()
             dict = {"IP":client_host,
             "LastChanged":str(datetime.datetime.now()),
-            "Latency":NetData[client_host]["Latency"],
+            "Latency":NetData["Nodes"][client_host]["Latency"],
             "Status":"Offline"
             }
             DB.CreateNetworkData(client_host, dict)
