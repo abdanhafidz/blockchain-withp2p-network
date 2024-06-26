@@ -5,6 +5,7 @@ from Database import Repositories as DB
 from Middleware import JSONWorker, BlockChainSync
 def Control(block:DictObj)->Response:
     try:
+        block = DictObj(block)
         BlockChainSync.VerifySyncBlockChain()
         BlockChain = Blockchain()
         VerifyBlock:BlockVerifyStatus = BlockChain.verify_block(block)
