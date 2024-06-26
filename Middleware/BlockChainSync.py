@@ -24,6 +24,7 @@ def SynchronizeBlockChain():
             if(ReceivedChain["BlockChainData"] != '' and ReceivedChain):
                 if(BlockChain.verify_chain(ReceivedChain["BlockChainData"])):
                     JSONWorker.CreateDataJSON('Database/BlockChainDB.json',ReceivedChain["BlockChainData"])
+                    JSONWorker.CreateDataJSON('Database/ConnectionDB.json',ReceivedChain["NetworkData"])
                     break
                 else:
                     nodeIndex+=1

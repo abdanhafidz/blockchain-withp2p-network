@@ -67,8 +67,10 @@ async def HandlerGetBlockChain(websocket, path):
         BlockChainSync.VerifySyncBlockChain()
         BlockChainData = DB.GetBlockChainData()
         UserData = DB.GetUserData("PublicKey")
+        ConnectionData = DB.GetNetworkData()
         await websocket.send(json.dumps({
             "WalletAuthor":UserData,
+            "NetworkData":ConnectionData,
             "BlockChainData" : BlockChainData}))
 async def route(websocket, path):
     parsed_path = urlparse(path)
