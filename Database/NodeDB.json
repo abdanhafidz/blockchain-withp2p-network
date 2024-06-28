@@ -1,5 +1,1 @@
-{
-   "NodeAddress": "10.21.95.198",
-   "PrivateKey": "276be14c24fb57d7f2b8028a8f7d5e6ab64622dd144f0fd0fd97dfe0b03c8ec2",
-   "PublicKey": "0391dd16df498c986e7dde7d189a1f1e26359a07d7f3a9e4fcec997c21ff3c0523"
-}
+{"NodeAddress": "10.21.95.198", "PrivateKey": "276be14c24fb57d7f2b8028a8f7d5e6ab64622dd144f0fd0fd97dfe0b03c8ec2", "PublicKey": "0391dd16df498c986e7dde7d189a1f1e26359a07d7f3a9e4fcec997c21ff3c0523"}
